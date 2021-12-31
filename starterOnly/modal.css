@@ -232,6 +232,45 @@ input {
     color: red;
 }
 
+.toaster{
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  font-size: 18px;
+  display: none;
+  padding: 20px;
+  z-index: 100;
+  border-radius: 10px;
+  background-color: #279e7a;
+  color: white;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  text-align: center;
+  animation-name: addToaster;
+  animation-duration: .6s;
+}
+
+.toaster > div{
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  padding: 6px;
+  font-size: 15px;
+  border-radius: 50%;
+  background-color: black;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
 .error-input{
   border: solid 2px red;
 }
@@ -535,3 +574,14 @@ footer {
   }
 }
 
+@keyframes addToaster {
+  from {
+    opacity: 0;
+    top: 5%;
+  }
+
+  to {
+    opacity: 1;
+    top: 15%;
+  }
+}

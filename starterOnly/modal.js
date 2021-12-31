@@ -22,6 +22,9 @@ modalBtn.forEach((display) => display.addEventListener("click", toggleModal));
 //Close modal
 close.addEventListener("click", toggleModal);
 
+//Close toaster
+document.querySelector("body > main > div.toaster").onclick = function() {document.querySelector("body > main > div.toaster").style.display = "none"}
+
 // launch modal form
 function toggleModal() {
     modalbg.classList.toggle("modal");
@@ -73,9 +76,6 @@ function ValidateVille(ville)
 form.onsubmit = function (e) {
     e.preventDefault()
 
-    console.log(ValidateVille(e.target))
-    console.log(e.target)
-
     Object.values(e.target).forEach(key => {
         switch (key.id) {
             case 'first':
@@ -98,4 +98,13 @@ form.onsubmit = function (e) {
                 break;
         }
     });
+
+    if (document.querySelectorAll('.error-input').length === 0) {
+        //Affiche message de confirmation
+        document.querySelector("body > main > div.toaster").style.display = "block"
+        //Vide les champs du formulaire
+        document.querySelectorAll('input').forEach(key => {
+            key.value = ""
+        })
+    }
 };
