@@ -55,6 +55,8 @@ function ValidateEmail(mail)
 //verif ville
 function ValidateVille(ville) 
 {
+    var checked = false
+
     Object.values(ville).forEach(key => {
         if (key.name === "location") {
             console.log(key.checked)
@@ -62,21 +64,24 @@ function ValidateVille(ville)
                     console.log(key.parentNode.querySelector('.error'))
                     key.parentNode.querySelector('input').classList.remove("error-input");
                     key.parentNode.querySelector('.error').textContent = '';
-                return false
-            }else{
-                key.parentNode.querySelector('input').classList.add("error-input");
-                key.parentNode.querySelector('.error').textContent = "veuillez selectionner une ville";
+                    checked = true
             }
         }
     })
-    return true
+
+    if(!checked){
+        document.querySelector('input[type="radio"]').parentNode.querySelector(".error").textContent = "veuillez selectionner une ville";
+    }
 }
 
 //Valid form
 form.onsubmit = function (e) {
     e.preventDefault()
 
+    ValidateVille(document.querySelectorAll('input[type="radio"]'))
+
     Object.values(e.target).forEach(key => {
+        console.log(key)
         switch (key.id) {
             case 'first':
                 error(key, key.value.length < 2, "Veuillez entrer 2 caractères ou plus pour le champ du prenom.")
@@ -99,12 +104,15 @@ form.onsubmit = function (e) {
         }
     });
 
+    //Formulaire envoyé
     if (document.querySelectorAll('.error-input').length === 0) {
         //Affiche message de confirmation
         document.querySelector("body > main > div.toaster").style.display = "block"
         //Vide les champs du formulaire
-        document.querySelectorAll('input').forEach(key => {
+        document.querySelectorAll('input:not(:last-child)').forEach(key => {
             key.value = ""
+            key.checked = false
         })
+        toggleModal()
     }
 };
